@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>컬러로 보는 오늘의 운세</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23F0679B%22/></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- 입력 화면 -->
+  <section id="screen-input" class="screen">
+    <div class="card">
+      <div class="badge-icon">🎨</div>
+      <h1>컬러로 보는<br>오늘의 운세</h1>
+      <p class="subtitle">생년월일을 기반으로, 매일 새벽<br>당신만의 오늘의 컬러가 도착해요.</p>
+
+      <form id="birth-form">
+        <label for="birthdate">생년월일</label>
+        <input type="date" id="birthdate" name="birthdate" required
+               min="1900-01-01" max="2026-12-31">
+        <button type="submit">오늘의 컬러 보기</button>
+      </form>
+      <p class="privacy-note">입력한 생년월일은 이 기기의 브라우저에만 저장되며,<br>서버로 전송되지 않아요.</p>
+    </div>
+  </section>
+
+  <!-- 결과 화면 -->
+  <section id="screen-result" class="screen hidden">
+    <div class="result-wrap">
+
+      <header class="result-header">
+        <div>
+          <p class="today-date" id="today-date-label"></p>
+          <p class="greeting" id="greeting-label"></p>
+        </div>
+        <button id="btn-reset" class="icon-btn" title="생년월일 다시 설정">⚙️</button>
+      </header>
+
+      <div class="color-stage">
+        <div class="color-orb" id="color-orb"></div>
+        <h2 id="color-name">-</h2>
+        <p class="color-hex" id="color-hex">#000000</p>
+        <p class="color-keyword" id="color-keyword">-</p>
+      </div>
+
+      <div class="fortune-card">
+        <p class="fortune-label">오늘의 총운</p>
+        <p class="fortune-text" id="fortune-text">-</p>
+      </div>
+
+      <div class="category-grid">
+        <div class="category-item">
+          <p class="category-icon">💕</p>
+          <p class="category-label">애정운</p>
+          <p class="category-text" id="love-text">-</p>
+        </div>
+        <div class="category-item">
+          <p class="category-icon">💰</p>
+          <p class="category-label">재물운</p>
+          <p class="category-text" id="money-text">-</p>
+        </div>
+        <div class="category-item">
+          <p class="category-icon">🌿</p>
+          <p class="category-label">건강운</p>
+          <p class="category-text" id="health-text">-</p>
+        </div>
+        <div class="category-item">
+          <p class="category-icon">💼</p>
+          <p class="category-label">업무운</p>
+          <p class="category-text" id="work-text">-</p>
+        </div>
+      </div>
+
+      <div class="fortune-card">
+        <p class="fortune-label">오늘의 행운 정보</p>
+        <div class="lucky-grid">
+          <div class="lucky-item">
+            <p class="lucky-icon">🎁</p>
+            <p class="lucky-name">행운의 아이템</p>
+            <p class="lucky-value" id="lucky-item-value">-</p>
+          </div>
+          <div class="lucky-item">
+            <p class="lucky-icon">🔢</p>
+            <p class="lucky-name">행운의 숫자</p>
+            <p class="lucky-value" id="lucky-number-value">-</p>
+          </div>
+          <div class="lucky-item">
+            <p class="lucky-icon">🤝</p>
+            <p class="lucky-name">궁합 컬러</p>
+            <p class="lucky-value">
+              <span class="mini-swatch" id="match-color-swatch"></span>
+              <span id="match-color-value">-</span>
+            </p>
+          </div>
+          <div class="lucky-item">
+            <p class="lucky-icon">🚫</p>
+            <p class="lucky-name">피해야 할 색</p>
+            <p class="lucky-value">
+              <span class="mini-swatch" id="avoid-color-swatch"></span>
+              <span id="avoid-color-value">-</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fortune-card">
+        <p class="fortune-label">시간대별 조언</p>
+        <div class="time-list">
+          <div class="time-item">
+            <span class="time-tag">🌅 오전</span>
+            <p class="time-text" id="morning-text">-</p>
+          </div>
+          <div class="time-item">
+            <span class="time-tag">☀️ 오후</span>
+            <p class="time-text" id="afternoon-text">-</p>
+          </div>
+          <div class="time-item">
+            <span class="time-tag">🌙 저녁</span>
+            <p class="time-text" id="evening-text">-</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fortune-card action-card">
+        <p class="fortune-label">행동 지침</p>
+        <p class="fortune-text" id="action-text">-</p>
+      </div>
+
+      <div class="quote-card">
+        <p class="quote-text" id="quote-text">-</p>
+      </div>
+
+      <div class="history-card">
+        <p class="fortune-label">최근 컬러 기록</p>
+        <div id="history-list" class="history-list"></div>
+      </div>
+
+      <p class="footer-note">매일 새벽, 날짜가 바뀌면 새로운 컬러가 갱신돼요.</p>
+    </div>
+  </section>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
